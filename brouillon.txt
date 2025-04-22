@@ -30,7 +30,7 @@ Introduction:
 	- Mémoire vive: 8 Go
 	- Systéme d'explotation: Debian 12 BookWorm (en Dual-boot avec Windows 10)
 	
-	Remarque: L'OS Debian est monté sur mon disque dur (HDDR). Cependant, dans le code fourni il n'y a pas d'E/S majeure, soit cela ne devrait pas se faire ressentir sur les performances globales.
+	Remarque: L'OS Debian est monté sur mon disque dur (HDDR). Cependant, dans le code fourni il n'y a pas d'E/S vers le disque dur volumineuse, soit cela ne devrait pas affecter les performances globales.
 	
 Thèorie sur multiplication des matrices:
 
