@@ -1,0 +1,67 @@
+////////////////////////////////////////////////////////////////////////////////////////////
+
+Strong scaling: on augmente le nombre de processeurs pour un problème de taille donné -> Loi d'Amdahl
+
+Weak scaling: on augmente le nombre de processeurs en même temps que la taille du problème -> charge de travail constante par processus
+
+-> faire un script pour mesurer le temps d'execution 1,2,4,8,16,32...
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+TOP: Rendu de TP
+
+Nsundi Mboli Patrick / 22402928
+M1 CHPS
+
+Introduction:
+
+	Dans ce TP nous allons voir comment améliorer un code de multiplication de matrice naïf. Pour cela on explorera plusieurs "voies" d'amélioration en utilisant diverses méthodes et outils de profiling, d'analyse de performance ... Notament nous allons nous interreser à la structure des données en mémoire ainsi qu'à la manière dont celle-ci est accedé.
+	
+	Les test de performances et le données ainsi produites on été effectués sur mon ordinateur personel qui possède les spécificités suivantes (seules celles que je pense pertinantes sont rapportés):
+	- Modèle: HP Pavillion Gaming
+	- Processur: Intel Core i5-10300H 2.50GHz~4.50GHz
+		Cache:
+		- L1d: 128 KiB
+		- L1i: 128 KiB
+		- L2: 1 MiB
+		- L3: MiB
+	*- Carte graphique inetgré: Intel ...
+	- Carte graphique dediée: Nvidia GeForce GTX 1650 ...
+	- Mémoire vive: 8 Go
+	- Systéme d'explotation: Debian 12 BookWorm (en Dual-boot avec Windows 10)
+	
+	Remarque: L'OS Debian est monté sur mon disque dur (HDDR). Cependant, dans le code fourni il n'y a pas d'E/S majeure, soit cela ne devrait pas se faire ressentir sur les performances globales.
+	
+Thèorie sur multiplication des matrices:
+
+Si on considère deux matrices A (appartient) R^(m*k) et B (appartient) R^(k*n) (avec m,n,k (appartient) R), alors le produit de A*B = C est égal à:
+-> Formule multiplication matrice.
+
+-> pseudo-code asocié à la formule
+
+La complexité spatiale est en O(m+n+k)
+Nous avons la une complexité temporelle en O(mnk). -> faire graphique pour s'en servir comme point de comparaison ?
+
+
+Array Layouts:
+
+1. Mesures de performances du code pour differentes tailles de matrice
+Dans ce premier test on considère que les matrices sont carrés!
+
+Avec la commande "time":
+Taille Matrice / Temps d'execution (en min:secondes)
+0 / 0:0,006
+1 / 0:0,006
+2 / 0:0,006
+3 / 0:0,006
+4 / 0:0,006
+8 / 0:0,006
+16 / 0:0,006 
+32 / 0:0,007
+64 / 0:0,008
+128 / 0:0,010
+256 / 0:0,020
+...
+1024 / 0:0,636
+
+4096 / 6:56,933
