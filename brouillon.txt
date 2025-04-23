@@ -27,3 +27,107 @@ LayoutLeft est moins efficace que LayoutRight comme nous pouvons le voir dans ce
 ===============================Appartient a "data1" !! ==================================
 
 ========================================================================================
+
+
+Cache Blocking:
+
+=====================================================PERF EXECUTION============================================================================================
+Avec l'outil perf nous avons obtenu les resultats suivants:
+perf stat -B -e cache-references,cache-misses,L1-dcache-load-misses,L1-icache-load-misses,LLC-load-misses,faults ./build/src/top.matrix_product 1024 1024 1024
+
+ Performance counter stats for './build/src/top.matrix_product 1024 1024 1024':
+
+     1 720 045 301      cache-references                                                     (79,69%)
+        31 197 509      cache-misses                     #    1,814 % of all cache refs      (80,24%)
+     1 086 753 051      L1-dcache-load-misses                                                (80,07%)
+           469 582      L1-icache-load-misses                                                (80,25%)
+        16 580 374      LLC-load-misses                                                      (79,78%)
+             1 710      faults                                                             
+
+       0,548013956 seconds time elapsed
+
+       2,179220000 seconds user
+       0,007997000 seconds sys
+
+Ou encore:
+perf stat -B -e cache-references,cache-misses,L1-dcache-load-misses,L1-icache-load-misses,LLC-stores,LLC-store-misses,faults ./build/src/top.matrix_product 2048 2048 2048
+
+ Performance counter stats for './build/src/top.matrix_product 2048 2048 2048':
+
+     8 964 573 606      cache-references                                                     (66,67%)
+     5 435 760 124      cache-misses                     #   60,636 % of all cache refs      (66,68%)
+     8 716 140 860      L1-dcache-load-misses                                                (66,68%)
+        18 284 319      L1-icache-load-misses                                                (66,66%)
+        21 912 223      LLC-stores                                                           (66,66%)
+         1 975 804      LLC-store-misses                                                     (66,66%)
+             1 746      faults                                                             
+
+      32,226196093 seconds time elapsed
+
+     127,676101000 seconds user
+       0,063988000 seconds sys
+       
+Et encore:
+perf stat -B -e cache-references,cache-misses,L1-dcache-load-misses,L1-icache-load-misses,LLC-stores,LLC-store-misses,faults ./build/src/top.matrix_product 2100 2100 2100
+
+ Performance counter stats for './build/src/top.matrix_product 2100 2100 2100':
+
+    13 226 749 197      cache-references                                                     (66,67%)
+       660 123 135      cache-misses                     #    4,991 % of all cache refs      (66,72%)
+    13 850 636 627      L1-dcache-load-misses                                                (66,72%)
+         2 339 081      L1-icache-load-misses                                                (66,70%)
+        21 415 265      LLC-stores                                                           (66,64%)
+         1 554 613      LLC-store-misses                                                     (66,61%)
+             1 475      faults                                                             
+
+       3,581777547 seconds time elapsed
+
+      14,303968000 seconds user
+       0,011996000 seconds sys
+
+
+Hummm, Interressant:
+perf stat -B -e cache-references,cache-misses,L1-dcache-load,L1-dcache-load-misses,L1-icache-load-misses,LLC-stores,LLC-store-misses,faults ./build/src/top.matrix_product 2000 2000 2000
+
+ Performance counter stats for './build/src/top.matrix_product 2000 2000 2000':
+
+     8 399 558 072      cache-references                                                     (57,05%)
+       384 087 553      cache-misses                     #    4,573 % of all cache refs      (57,05%)
+    12 304 583 698      L1-dcache-load                                                       (57,12%)
+     9 821 715 509      L1-dcache-load-misses            #   79,82% of all L1-dcache accesses  (57,32%)
+         1 683 495      L1-icache-load-misses                                                (57,32%)
+        16 418 980      LLC-stores                                                           (57,24%)
+           418 371      LLC-store-misses                                                     (57,10%)
+             1 628      faults                                                             
+
+       2,878806066 seconds time elapsed
+
+      11,501489000 seconds user
+       0,008003000 seconds sys
+
+Haaaa, La suite
+perf stat -B -e cache-references,cache-misses,L1-dcache-load,L1-dcache-load-misses,L1-icache-load-misses,LLC-stores,LLC-store-misses,faults ./build/src/top.matrix_product 1500 1500 1500
+
+ Performance counter stats for './build/src/top.matrix_product 1500 1500 1500':
+
+       745 746 971      cache-references                                                     (56,93%)
+       154 470 337      cache-misses                     #   20,714 % of all cache refs      (57,00%)
+     5 245 515 546      L1-dcache-load                                                       (57,27%)
+     3 808 553 980      L1-dcache-load-misses            #   72,61% of all L1-dcache accesses  (57,57%)
+           864 177      L1-icache-load-misses                                                (57,40%)
+         9 479 558      LLC-stores                                                           (57,13%)
+            70 790      LLC-store-misses                                                     (56,92%)
+             1 594      faults                                                             
+
+       1,364947474 seconds time elapsed
+
+       5,449175000 seconds user
+       0,004003000 seconds sys
+
+==========================================================================================================================================================
+
+EXplications:
+Aprés plusieurs essais avec differentes tailles de matrice, on observe que en general nous avons un defaut d'ecriture dans la LLC (ici le cache L3) d'environ 5%. Soit sur 20 tentatives il y en a une qui échoue.
+Cependant, on peut obsever que il y a un très fort taux de defauts de cache dans le cache L1d, en ce qui concerne les chargements (lecture).
+
+
