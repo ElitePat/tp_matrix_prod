@@ -18,32 +18,10 @@
 #================================================================
 
 ### Variables:
-file1="data1a"
-file2="data1b"
+file1="data2"
+#rm $file1
 
-rm $file1 $file2
-
-msg="Exponentielle"
-echo "$msg"
-
-for (( i=1; i<10000 ; i=$(( $i * 2 )) )); 
-do 
-	echo "Calcul pour: $i";
-	sec1=$SECONDS
-	#sleep $(($i/10)) #remplacer par notre commande
-	
-	sec2=$SECONDS
-	temps=$(($sec2 - $sec1))
-	echo -e "$i\t$temps" >> $file1
-done
-
-msg="Exponentielle terminé"
-echo "$msg"
-
-# temps d'attente
-$(sleep 2)
-
-msg="Lineaire"
+msg="Augmentation Lineaire"
 echo "$msg"
 
 for (( i=0; i<10000 ; i=$(( $i + 250 )) )); 
@@ -51,11 +29,11 @@ do
 	echo "Calcul pour: $i";
 	sec1=$SECONDS
 	#sleep $(($i/10)) #remplacer par notre commande
-	
+	./build/src/top.matrix_product $i $i $i
 	sec2=$SECONDS
 	temps=$(($sec2 - $sec1))
-	echo -e "$i\t$temps" >> $file2
+	echo -e "$i\t$temps" >> $file1
 done
 
-msg="Lineaire terminé"
+msg="Test terminé"
 echo "$msg"

@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/patrick/tp_matrix_prod/build/_deps/kokkos-subbuild/CMakeFiles/kokkos-populate"
+		},
+		{
+			"file" : "/home/patrick/tp_matrix_prod/build/_deps/kokkos-subbuild/CMakeFiles/kokkos-populate.rule"
+		},
+		{
+			"file" : "/home/patrick/tp_matrix_prod/build/_deps/kokkos-subbuild/CMakeFiles/kokkos-populate-complete.rule"
+		},
+		{
+			"file" : "/home/patrick/tp_matrix_prod/build/_deps/kokkos-subbuild/kokkos-populate-prefix/src/kokkos-populate-stamp/kokkos-populate-build.rule"
+		},
+		{
+			"file" : "/home/patrick/tp_matrix_prod/build/_deps/kokkos-subbuild/kokkos-populate-prefix/src/kokkos-populate-stamp/kokkos-populate-configure.rule"
+		},
+		{
+			"file" : "/home/patrick/tp_matrix_prod/build/_deps/kokkos-subbuild/kokkos-populate-prefix/src/kokkos-populate-stamp/kokkos-populate-download.rule"
+		},
+		{
+			"file" : "/home/patrick/tp_matrix_prod/build/_deps/kokkos-subbuild/kokkos-populate-prefix/src/kokkos-populate-stamp/kokkos-populate-install.rule"
+		},
+		{
+			"file" : "/home/patrick/tp_matrix_prod/build/_deps/kokkos-subbuild/kokkos-populate-prefix/src/kokkos-populate-stamp/kokkos-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/patrick/tp_matrix_prod/build/_deps/kokkos-subbuild/kokkos-populate-prefix/src/kokkos-populate-stamp/kokkos-populate-patch.rule"
+		},
+		{
+			"file" : "/home/patrick/tp_matrix_prod/build/_deps/kokkos-subbuild/kokkos-populate-prefix/src/kokkos-populate-stamp/kokkos-populate-test.rule"
+		},
+		{
+			"file" : "/home/patrick/tp_matrix_prod/build/_deps/kokkos-subbuild/kokkos-populate-prefix/src/kokkos-populate-stamp/kokkos-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"kokkos-populate"
+		],
+		"name" : "kokkos-populate"
+	}
+}

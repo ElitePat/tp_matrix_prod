@@ -1,0 +1,1 @@
+include(/home/patrick/tp_matrix_prod/build/_deps/kokkos-build/KokkosTargets.cmake)
