@@ -16,5 +16,7 @@ data1:
 	plot "data1" title "Evolution du temps d'execution" w lp linewidth 3
 data1 avec comparaison:
 	plot "data1" title "Evolution du temps d'execution" w lp linewidth 3, x*x*x/2500000000
+data2 Strong scaling:
+	plot "da
 
 
