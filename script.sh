@@ -18,7 +18,7 @@
 #================================================================
 
 ### Variables:
-file1="data2"
+file1="data3"
 #rm $file1
 
 msg="Augmentation Lineaire"

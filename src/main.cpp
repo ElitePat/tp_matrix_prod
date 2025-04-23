@@ -4,7 +4,7 @@
 #include <Kokkos_Core.hpp>
 #include <fmt/core.h>
 
-using Matrix = Kokkos::View<double**, Kokkos::LayoutRight>;
+using Matrix = Kokkos::View<double**, Kokkos::LayoutLeft>;
 
 template <class MatrixType>
 auto matrix_init(MatrixType& M) -> void {
