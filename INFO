@@ -6,33 +6,21 @@ Weak scaling: on augmente le nombre de processeurs en même temps que la taille 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
--> faire graphique pour s'en servir comme point de comparaison
-
-
 Array Layouts:
 
-plot commands:
+plot commands used for this lab:
 data1:
 	plot "data1" title "Evolution du temps d'execution" w lp linewidth 3
 data1 avec comparaison:
 	plot "data1" title "Evolution du temps d'execution" w lp linewidth 3, x*x*x/2500000000
-data2 Strong scaling:
-	plot "da
-	
-
-
-
-LayoutLeft est moins efficace que LayoutRight comme nous pouvons le voir dans ce graphique
-
-===============================Appartient a "data1" !! ==================================
-
-========================================================================================
 
 
 Cache Blocking:
 
 =====================================================PERF EXECUTION============================================================================================
 Avec l'outil perf nous avons obtenu les resultats suivants:
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 perf stat -B -e cache-references,cache-misses,L1-dcache-load-misses,L1-icache-load-misses,LLC-load-misses,faults ./build/src/top.matrix_product 1024 1024 1024
 
  Performance counter stats for './build/src/top.matrix_product 1024 1024 1024':
@@ -49,7 +37,7 @@ perf stat -B -e cache-references,cache-misses,L1-dcache-load-misses,L1-icache-lo
        2,179220000 seconds user
        0,007997000 seconds sys
 
-Ou encore:
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 perf stat -B -e cache-references,cache-misses,L1-dcache-load-misses,L1-icache-load-misses,LLC-stores,LLC-store-misses,faults ./build/src/top.matrix_product 2048 2048 2048
 
  Performance counter stats for './build/src/top.matrix_product 2048 2048 2048':
@@ -67,7 +55,7 @@ perf stat -B -e cache-references,cache-misses,L1-dcache-load-misses,L1-icache-lo
      127,676101000 seconds user
        0,063988000 seconds sys
        
-Et encore:
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 perf stat -B -e cache-references,cache-misses,L1-dcache-load-misses,L1-icache-load-misses,LLC-stores,LLC-store-misses,faults ./build/src/top.matrix_product 2100 2100 2100
 
  Performance counter stats for './build/src/top.matrix_product 2100 2100 2100':
@@ -86,7 +74,7 @@ perf stat -B -e cache-references,cache-misses,L1-dcache-load-misses,L1-icache-lo
        0,011996000 seconds sys
 
 
-Hummm, Interressant:
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 perf stat -B -e cache-references,cache-misses,L1-dcache-load,L1-dcache-load-misses,L1-icache-load-misses,LLC-stores,LLC-store-misses,faults ./build/src/top.matrix_product 2000 2000 2000
 
  Performance counter stats for './build/src/top.matrix_product 2000 2000 2000':
@@ -105,7 +93,7 @@ perf stat -B -e cache-references,cache-misses,L1-dcache-load,L1-dcache-load-miss
       11,501489000 seconds user
        0,008003000 seconds sys
 
-Haaaa, La suite
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 perf stat -B -e cache-references,cache-misses,L1-dcache-load,L1-dcache-load-misses,L1-icache-load-misses,LLC-stores,LLC-store-misses,faults ./build/src/top.matrix_product 1500 1500 1500
 
  Performance counter stats for './build/src/top.matrix_product 1500 1500 1500':
@@ -124,10 +112,4 @@ perf stat -B -e cache-references,cache-misses,L1-dcache-load,L1-dcache-load-miss
        5,449175000 seconds user
        0,004003000 seconds sys
 
-==========================================================================================================================================================
-
-EXplications:
-Aprés plusieurs essais avec differentes tailles de matrice, on observe que en general nous avons un defaut d'ecriture dans la LLC (ici le cache L3) d'environ 5%. Soit sur 20 tentatives il y en a une qui échoue.
-Cependant, on peut obsever que il y a un très fort taux de defauts de cache dans le cache L1d, en ce qui concerne les chargements (lecture).
-
-
+=================================================================================================================================================================
