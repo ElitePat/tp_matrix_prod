@@ -4,8 +4,6 @@ Strong scaling: on augmente le nombre de processeurs pour un problème de taille
 
 Weak scaling: on augmente le nombre de processeurs en même temps que la taille du problème -> charge de travail constante par processus
 
--> faire un script pour mesurer le temps d'execution 1,2,4,8,16,32...
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 -> faire graphique pour s'en servir comme point de comparaison
